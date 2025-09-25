@@ -1,0 +1,80 @@
+# Name of the workflow
+name: Manual Helm Chart Update
+
+# Workflow trigger configuration
+on:
+  # workflow_dispatch: Allows you to manually run this workflow from the Actions tab
+  workflow_dispatch:
+    # Define input parameters for manual execution
+    inputs:
+      chart_repo_name:
+        description: 'Helm repository name (e.g., harbor)'
+        required: true
+      chart_repo_url:
+        description: 'Helm repository URL (e.g., https://helm.goharbor.io)'
+        required: true
+      chart_name:
+        description: 'Helm chart name (e.g., harbor)'
+        required: true
+      chart_version:
+        description: 'Helm chart version (e.g., 1.17.1)'
+        required: true
+
+# Define the job to be executed
+jobs:
+  update-chart:
+    # Specify the runner environment
+    runs-on: ubuntu-latest
+
+    # Grant permissions to push to the Git repository
+    permissions:
+      contents: write
+
+    # Define the steps for the job
+    steps:
+      # 1. Checkout the gh-pages branch code
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: 'gh-pages'
+
+      # 2. Install the Helm CLI
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        id: install
+
+      # 3. Add the Helm repository using the provided inputs
+      - name: Add Helm repository
+        run: |
+          helm repo add ${{ github.event.inputs.chart_repo_name }} ${{ github.event.inputs.chart_repo_url }}
+          helm repo update
+      
+      # 4. Pull the Helm chart (.tgz) using the provided inputs
+      - name: Pull Helm chart
+        run: |
+          helm pull ${{ github.event.inputs.chart_repo_name }}/${{ github.event.inputs.chart_name }} --version ${{ github.event.inputs.chart_version }}
+          
+      # 5. Regenerate the index.yaml file
+      - name: Re-index Helm repository
+        run: |
+          # Dynamically create the repository URL (owner/repo_name)
+          repo_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          helm repo index . --url $repo_url
+
+      # 6. Commit and push the changes
+      - name: Commit and push changes
+        run: |
+          # Configure Git user information
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add all changes
+          git add .
+          
+          # Commit and push only if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "ci: Add helm chart ${{ github.event.inputs.chart_name }} version ${{ github.event.inputs.chart_version }}"
+            git push origin gh-pages
+          else
+            echo "No changes to commit."
+          fi

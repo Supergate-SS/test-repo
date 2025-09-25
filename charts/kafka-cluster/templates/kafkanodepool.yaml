@@ -1,0 +1,21 @@
+{{- $globalNamespace := .Values.namespace | default "default" }}
+{{- range $idx, $pool := .Values.kafkaNodePools }}
+{{- if (default true $pool.enabled) }}
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: {{ required "kafkaNodePools[].metadata.name is required" $pool.metadata.name }}
+  namespace: {{ default $globalNamespace $pool.metadata.namespace }}
+{{- with $pool.metadata.labels }}
+  labels:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- with $pool.metadata.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{ toYaml (required "kafkaNodePools[].spec is required" $pool.spec) | indent 2 }}
+---
+{{- end }}
+{{- end }}

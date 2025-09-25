@@ -1,0 +1,20 @@
+{{- with .Values.connectorConfigMap }}
+{{- if or (not (hasKey . "enabled")) (eq .enabled true) }}
+{{- $globalNamespace := $.Values.namespace | default "default" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ required "connectorConfigMap.metadata.name is required" .metadata.name }}
+  namespace: {{ default $globalNamespace .metadata.namespace }}
+{{- with .metadata.labels }}
+  labels:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- with .metadata.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+data:
+{{ toYaml (required "connectorConfigMap.data is required" .data) | indent 2 }}
+{{- end }}
+{{- end }}

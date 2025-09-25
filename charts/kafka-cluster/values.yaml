@@ -1,0 +1,20 @@
+# Default namespace applied to resources when not explicitly overridden
+namespace: default
+
+# List of KafkaNodePool resources to create
+kafkaNodePools: []
+
+# Definition of the Kafka resource (single cluster)
+kafkaCluster: {}
+
+# Kafka Connect deployment and service definitions
+kafkaConnect:
+  enabled: false
+  deployment: {}
+  service: {}
+
+# ConfigMap that holds Kafka connector configuration
+connectorConfigMap:
+  enabled: false
+  metadata: {}
+  data: {}

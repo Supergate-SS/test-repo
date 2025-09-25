@@ -1,0 +1,20 @@
+{{- with .Values.kafkaCluster }}
+{{- if (default true .enabled) }}
+{{- $globalNamespace := $.Values.namespace | default "default" }}
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: {{ required "kafkaCluster.metadata.name is required" .metadata.name }}
+  namespace: {{ default $globalNamespace .metadata.namespace }}
+{{- with .metadata.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- with .metadata.labels }}
+  labels:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{ toYaml (required "kafkaCluster.spec is required" .spec) | indent 2 }}
+{{- end }}
+{{- end }}

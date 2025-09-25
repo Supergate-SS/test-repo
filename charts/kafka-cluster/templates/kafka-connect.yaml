@@ -1,0 +1,42 @@
+{{- with .Values.kafkaConnect }}
+{{- if (default true .enabled) }}
+{{- $globalNamespace := $.Values.namespace | default "default" }}
+{{- with .deployment }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ required "kafkaConnect.deployment.metadata.name is required" .metadata.name }}
+  namespace: {{ default $globalNamespace .metadata.namespace }}
+{{- with .metadata.labels }}
+  labels:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- with .metadata.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{ toYaml (required "kafkaConnect.deployment.spec is required" .spec) | indent 2 }}
+---
+{{- end }}
+{{- with .service }}
+{{- if (default true .enabled) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ required "kafkaConnect.service.metadata.name is required" .metadata.name }}
+  namespace: {{ default $globalNamespace .metadata.namespace }}
+{{- with .metadata.labels }}
+  labels:
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- with .metadata.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{ toYaml (required "kafkaConnect.service.spec is required" .spec) | indent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

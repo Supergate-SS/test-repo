@@ -3,7 +3,7 @@ entries:
   harbor:
   - apiVersion: v1
     appVersion: 2.13.1
-    created: "2025-09-25T16:24:41.952895+09:00"
+    created: "2025-09-30T13:53:58.930806+09:00"
     description: An open source trusted cloud native registry that stores, signs,
       and scans content
     digest: ef17afa156078b9ab1503a25908058ccd902fb0da045583373ce71615ab82965
@@ -27,36 +27,36 @@ entries:
     - https://github.com/goharbor/harbor
     - https://github.com/goharbor/harbor-helm
     urls:
-    - https://Supergate-SS.github.io/test-repo/harbor-1.17.1.tgz
+    - harbor-1.17.1.tgz
     version: 1.17.1
   kafka-cluster:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2025-09-25T16:24:41.953127+09:00"
+    created: "2025-09-30T13:53:58.931055+09:00"
     description: Helm chart for provisioning Strimzi Kafka cluster components and
       Kafka Connect resources
     digest: 8a3fc3941d4e1a0578e31612c0b874b4041268b01f0fb187f1f01fbbfcf5b4df
     name: kafka-cluster
     type: application
     urls:
-    - https://Supergate-SS.github.io/test-repo/kafka-cluster-0.1.0.tgz
+    - kafka-cluster-0.1.0.tgz
     version: 0.1.0
   kafka-ui:
   - apiVersion: v2
     appVersion: v0.6.2
-    created: "2025-09-25T16:24:41.954993+09:00"
+    created: "2025-09-30T13:53:58.931398+09:00"
     description: A Helm chart for kafka-UI
     digest: c8eb41a0fcd385b5017563780a294d7a560b249efaa5a10c45d1e3d0ca1211c2
     icon: https://github.com/provectus/kafka-ui/raw/master/documentation/images/kafka-ui-logo.png
     name: kafka-ui
     type: application
     urls:
-    - https://Supergate-SS.github.io/test-repo/kafka-ui-0.6.2.tgz
+    - kafka-ui-0.6.2.tgz
     version: 0.6.2
   logstash:
   - apiVersion: v1
     appVersion: 8.5.1
-    created: "2025-09-25T16:24:41.955847+09:00"
+    created: "2025-09-30T13:53:58.932003+09:00"
     description: Official Elastic helm chart for Logstash
     digest: 70aace1eb5ecb759942e60ffd192a849330582900658a6b306055a9530adb44b
     home: https://github.com/elastic/helm-charts
@@ -68,12 +68,35 @@ entries:
     sources:
     - https://github.com/elastic/logstash
     urls:
-    - https://Supergate-SS.github.io/test-repo/logstash-8.5.1.tgz
+    - logstash-8.5.1.tgz
     version: 8.5.1
+  minio:
+  - apiVersion: v1
+    appVersion: RELEASE.2024-12-18T13-15-44Z
+    created: "2025-09-30T13:53:58.933038+09:00"
+    description: High Performance Object Storage
+    digest: 25fa2740480d1ebc9e64340854a6c42d3a7bc39c2a77378da91b21f144faa9af
+    home: https://min.io
+    icon: https://min.io/resources/img/logo/MINIO_wordmark.png
+    keywords:
+    - minio
+    - storage
+    - object-storage
+    - s3
+    - cluster
+    maintainers:
+    - email: dev@minio.io
+      name: MinIO, Inc
+    name: minio
+    sources:
+    - https://github.com/minio/minio
+    urls:
+    - minio-5.4.0.tgz
+    version: 5.4.0
   opensearch:
   - apiVersion: v2
     appVersion: 2.13.0
-    created: "2025-09-25T16:24:41.956909+09:00"
+    created: "2025-09-30T13:53:58.934038+09:00"
     description: A Helm chart for OpenSearch
     digest: 61b5d932d64b738a49bef2ba5783d61893c296b165a81d1b95d3514d68f02500
     home: https://opensearch.org
@@ -90,12 +113,12 @@ entries:
     - https://github.com/opensearch-project/helm-charts
     type: application
     urls:
-    - https://Supergate-SS.github.io/test-repo/opensearch-2.19.0.tgz
+    - opensearch-2.19.0.tgz
     version: 2.19.0
   opensearch-dashboards:
   - apiVersion: v2
     appVersion: 2.13.0
-    created: "2025-09-25T16:24:41.95751+09:00"
+    created: "2025-09-30T13:53:58.934546+09:00"
     description: A Helm chart for OpenSearch Dashboards
     digest: 774475ac02b041d246ffda0988796141367c48909f08f86bbc84f64c9b7eb203
     maintainers:
@@ -108,12 +131,12 @@ entries:
     name: opensearch-dashboards
     type: application
     urls:
-    - https://Supergate-SS.github.io/test-repo/opensearch-dashboards-2.17.0.tgz
+    - opensearch-dashboards-2.17.0.tgz
     version: 2.17.0
   rook-ceph:
   - apiVersion: v2
     appVersion: v1.18.2
-    created: "2025-09-25T16:24:41.968085+09:00"
+    created: "2025-09-30T13:53:58.942086+09:00"
     dependencies:
     - name: library
       repository: file://../library
@@ -130,12 +153,12 @@ entries:
     sources:
     - https://github.com/rook/rook
     urls:
-    - https://Supergate-SS.github.io/test-repo/rook-ceph-v1.18.2.tgz
+    - rook-ceph-v1.18.2.tgz
     version: v1.18.2
   rook-ceph-cluster:
   - apiVersion: v2
     appVersion: v1.18.2
-    created: "2025-09-25T16:24:41.958862+09:00"
+    created: "2025-09-30T13:53:58.936465+09:00"
     dependencies:
     - name: library
       repository: file://../library
@@ -147,12 +170,12 @@ entries:
     sources:
     - https://github.com/rook/rook
     urls:
-    - https://Supergate-SS.github.io/test-repo/rook-ceph-cluster-v1.18.2.tgz
+    - rook-ceph-cluster-v1.18.2.tgz
     version: v1.18.2
   strimzi-kafka-operator:
   - apiVersion: v2
     appVersion: 0.47.0
-    created: "2025-09-25T16:24:41.971137+09:00"
+    created: "2025-09-30T13:53:58.944908+09:00"
     description: 'Strimzi: Apache Kafka running on Kubernetes'
     digest: 3907c0b2638ba59ef8a1bad7ed218dd0f6e7205569d3051983bcdf8aea202913
     home: https://strimzi.io/
@@ -173,6 +196,6 @@ entries:
     sources:
     - https://github.com/strimzi/strimzi-kafka-operator
     urls:
-    - https://Supergate-SS.github.io/test-repo/strimzi-kafka-operator-helm-3-chart-0.47.0.tgz
+    - strimzi-kafka-operator-helm-3-chart-0.47.0.tgz
     version: 0.47.0
-generated: "2025-09-25T16:24:41.950645+09:00"
+generated: "2025-09-30T13:53:58.927292+09:00"
